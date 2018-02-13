@@ -58,10 +58,16 @@ var playerPointsElem = document.getElementById('js-playerPoints'),
 function newGame() {
   player.name = prompt('Please enter your name', 'imię gracza');
   player.rounds = prompt ('How many rounds do you want play?', 'liczba');
-  if (player.name && player.rounds) {
+  if (player.name) {
+    if (player.rounds) {
+    while (!Number.isInteger(Number(player.rounds))) {
+     player.rounds = prompt('How many rounds do you want play?', 'liczba');
+    }
+  }
     player.score = computer.score = 0;
     gameState = 'started';
     setGameElements();
+    setGamePoints();
 
     playerNameElem.innerHTML = player.name;
 
