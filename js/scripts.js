@@ -18,7 +18,8 @@ pickScissors.addEventListener('click', function () {
 var gameState = 'notStarted',
   player = {
     name: '',
-    score: 0
+    score: 0,
+    rounds: ''
   },
   computer = {
     score: 0
@@ -27,16 +28,19 @@ var gameState = 'notStarted',
 var newGameElem = document.getElementById('js-newGameElement'),
   pickElem = document.getElementById('js-playerPickElement'),
   resultsElem = document.getElementById('js-resultsTableElement');
-
+  winElem = document.getElementById('js-winElem');
+  
 function setGameElements() {
   switch (gameState) {
     case 'started':
       newGameElem.style.display = 'none';
       pickElem.style.display = 'block';
       resultsElem.style.display = 'block';
+      winElem.style.display = 'none';
       break;
     case 'ended':
       newGameBtn.innerText = 'Jeszcze raz';
+      winElem.style.display = 'block';
     case 'notStarted':
     default:
       newGameElem.style.display = 'block';
@@ -53,7 +57,8 @@ var playerPointsElem = document.getElementById('js-playerPoints'),
 
 function newGame() {
   player.name = prompt('Please enter your name', 'imię gracza');
-  if (player.name) {
+  player.rounds = prompt ('How many rounds do you want play?', 'liczba');
+  if (player.name && player.rounds) {
     player.score = computer.score = 0;
     gameState = 'started';
     setGameElements();
@@ -63,9 +68,6 @@ function newGame() {
   }
 }
 
-function playerPick(playerPick) {
-  console.log(playerPick);
-}
 
 function getComputerPick() {
   var possiblePicks = ['rock', 'paper', 'scissors'];
@@ -116,18 +118,18 @@ function setGamePoints() {
   playerPointsElem.innerHTML = player.score;
   computerPointsElem.innerHTML = computer.score;
 
-  setTimeout(checkGameEnd, 0);
+checkGameEnd();
 }
 
 function checkGameEnd() {
 
-  if (player.score == 10) {
+  if (player.score == player.rounds) {
+    winElem.innerHTML = player.name + ', you win!'
     gameState = 'ended';
     setGameElements();
-    alert("Zdobyłeś 10 punktów, wygrałeś grę!");
-  } else if (computer.score == 10) {
+  } else if (computer.score == player.rounds) {
+    winElem.innerHTML = 'Computer wins!';
     gameState = 'ended';
     setGameElements();
-    alert("Komputer zdobył 10 punktów, niestety przegrałeś grę.");
   }
 }

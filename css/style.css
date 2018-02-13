@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Barlow+Condensed');
 
+body {
+  font-family: 'Barlow Condensed', sans-serif;
+  }
 .container {
   padding: 15px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
+}
+.badge {
   font-size: 20px;
 }
